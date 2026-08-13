@@ -13,3 +13,73 @@
   height: 100%;
   object-fit: cover;
 } */
+
+/* WhatsApp floating button
+   Fixed bottom-right on every page. The reCAPTCHA v3 badge also anchors
+   bottom-right, so it is nudged up to sit above this button rather than
+   underneath it -- Google requires the badge stay visible. */
+.vw-whatsapp-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #25d366;
+  color: #fff;
+  font-size: 30px;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.vw-whatsapp-float:hover,
+.vw-whatsapp-float:focus {
+  background-color: #1ebe5b;
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.vw-whatsapp-float:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.vw-whatsapp-float i {
+  pointer-events: none;
+}
+
+/* Keep Google's badge clear of the button. */
+.grecaptcha-badge {
+  bottom: 90px !important;
+}
+
+@media (max-width: 575px) {
+  .vw-whatsapp-float {
+    right: 14px;
+    bottom: 14px;
+    width: 50px;
+    height: 50px;
+    font-size: 26px;
+  }
+  .grecaptcha-badge {
+    bottom: 76px !important;
+  }
+}
+
+/* Respect a reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+  .vw-whatsapp-float {
+    transition: none;
+  }
+  .vw-whatsapp-float:hover,
+  .vw-whatsapp-float:focus {
+    transform: none;
+  }
+}
