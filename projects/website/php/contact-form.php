@@ -20,10 +20,16 @@ require 'php-mailer/src/SMTP.php';
 require 'php-mailer/src/Exception.php';
 
 // Step 1 - Enter your email address below.
-$email = 'vibratewaves@gmail.com';
+$email = 'info@vibratewaves.com';
 
-// If the e-mail is not working, change the debug option to 2 | $debug = 2;
-$debug = 2;
+// Step 1b - SMTP password for the mailbox above (Hostinger). Must be set or sending fails.
+// Prefer setting VW_SMTP_PASSWORD in the hosting environment over hardcoding it here.
+$smtpPassword = getenv('VW_SMTP_PASSWORD') ?: '';
+
+// Set to 2 to dump the SMTP conversation while troubleshooting. Keep 0 in production:
+// any other value suppresses the JSON response the form's JS expects, and leaks the
+// SMTP dialog (including AUTH) into the page output.
+$debug = 0;
 
 // If contact form don't has the subject input change the value of subject here
 $subject = ( isset($_POST['subject']) ) ? $_POST['subject'] : 'Define subject in php/contact-form.php line 29';
@@ -56,13 +62,13 @@ try {
 
 	// Step 2 (Optional) - If you don't receive the email, try to configure the parameters below:
 
-	//$mail->IsSMTP();                                         // Set mailer to use SMTP
-	//$mail->Host = 'mail.yourserver.com';				       // Specify main and backup server
-	//$mail->SMTPAuth = true;                                  // Enable SMTP authentication
-	//$mail->Username = 'user@example.com';                    // SMTP username
-	//$mail->Password = 'secret';                              // SMTP password
-	//$mail->SMTPSecure = 'tls';                               // Enable encryption, 'ssl' also accepted
-	//$mail->Port = 587;   								       // TCP port to connect to
+	$mail->IsSMTP();                                           // Set mailer to use SMTP
+	$mail->Host = 'smtp.hostinger.com';                        // Hostinger outgoing mail server
+	$mail->SMTPAuth = true;                                    // Enable SMTP authentication
+	$mail->Username = $email;                                  // info@vibratewaves.com
+	$mail->Password = $smtpPassword;                           // see Step 1b above
+	$mail->SMTPSecure = 'ssl';                                 // implicit TLS, as shown in Hostinger settings
+	$mail->Port = 465;                                         // TCP port to connect to
 
 	$mail->AddAddress($email);	 						       // Add another recipient
 
