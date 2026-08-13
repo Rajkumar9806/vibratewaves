@@ -1,0 +1,12 @@
+# PHP cannot run on Vercel. Left in the repo for the Hostinger deploy, but must
+# not ship here: Vercel would serve these as plaintext and disclose the source,
+# including the SMTP host and username. api/contact.js replaces contact-form.php.
+php/
+
+# Working folders, not referenced by any page (~128 MB combined).
+Downloaded Images/
+Tested images/
+resized images/
+docs/
+
+.DS_Store

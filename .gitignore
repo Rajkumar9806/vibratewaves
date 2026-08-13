@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Node dependencies for the serverless contact handler; Vercel installs these
+# from package-lock.json at build time.
+node_modules/
+
+# Vercel CLI local link/state
+.vercel

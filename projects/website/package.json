@@ -1,0 +1,12 @@
+{
+  "name": "vibratewaves-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vibrate Waves static site with a serverless contact form handler",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.0"
+  }
+}
